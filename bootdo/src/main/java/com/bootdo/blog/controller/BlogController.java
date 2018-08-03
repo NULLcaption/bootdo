@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 /**
- * @author bootdo 1992lcg@163.com
- */
+* @Description:    博客管理控制类
+* @Author:         Cheney Master
+* @CreateDate:     2018/7/26 11:25
+* @Version:        1.0
+*/
 @RequestMapping("/blog")
 @Controller
 public class BlogController {

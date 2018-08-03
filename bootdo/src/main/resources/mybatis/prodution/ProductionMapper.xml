@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.production.dao.ProductionDao">
+
+
+    <select id="getProductCollectById" parameterType="com.bootdo.production.domain.ProductCollectionDo" resultType="int">
+        SELECT COUNT(*) FROM product_collection t WHERE t.pid=#{pid} AND t.user_id=#{userId}
+    </select>
+
+
+    <!--更新购物车-->
+    <update id="updateProductCarById" parameterType="com.bootdo.production.domain.ProductCarDo">
+        UPDATE product_car t SET t.num=#{num},t.creat_time=#{creatTime} WHERE t.pid=#{pid} AND t.user_id=#{userId}
+    </update>
+
+    <!--保存购物车-->
+    <insert id="creatProductCar" parameterType="com.bootdo.production.domain.ProductCarDo"  useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO product_car
+        (pid,user_id,num,creat_time)
+        VALUES
+        (#{pid},#{userId},#{num},#{creatTime})
+    </insert>
+    
+    <!--根据Id获取购物车中的数量-->
+    <select id="getProductCarById" parameterType="com.bootdo.production.domain.ProductCarDo" resultType="int">
+        SELECT COUNT(*) FROM product_car t WHERE t.pid = #{pid} AND t.user_id = #{userId}
+    </select>
+
+    <!--根据ID保存图片-->
+    <update id="saveXppImage" parameterType="com.bootdo.production.domain.ProdctionDo">
+        UPDATE product_sku t SET t.product_image=#{productImage},t.product_image_url=#{productImageUrl} WHERE t.sku_id=#{pid}
+    </update>
+
+    <!--根据id获取产品-->
+    <select id="getProductionByPid" resultType="com.bootdo.production.domain.ProdctionDo">
+        SELECT
+            t.sku_id pid,
+            t.product_image productImage,
+            t.product_image_url productImageUrl,
+            t.material_code productCode,
+            t.sku_name productName,
+            t.category_name category,
+            t.models models,
+            t.units units,
+            t.price price,
+            t.volume volume,
+            t.weight weight
+        FROM product_sku t
+        WHERE t.sku_id = #{pid}
+    </select>
+
+    <!--获取Xpp产品列表-->
+    <select id="getProductXppList" resultType="com.bootdo.production.domain.ProdctionDo">
+        SELECT
+            t.sku_id pid,
+            t.product_image productImage,
+            t.product_image_url productImageUrl,
+            t.material_code productCode,
+            t.sku_name productName,
+            t.category_name category,
+            t.models models,
+            t.units units,
+            t.price price,
+            t.volume volume,
+            t.weight weight
+        FROM product_sku t
+        <where>
+            <if test="brand != null and brand !=''">t.brand = #{brand}</if>
+            <if test="productName != null and productName != ''">t.sku_name = #{productName}</if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+            <otherwise>
+                order by pid desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit ${offset}, ${limit}
+        </if>
+    </select>
+
+    <select id="getProductXppCount" resultType="int">
+        SELECT COUNT(*)
+        FROM product_sku t
+        <where>
+            <if test="brand != null and brand !=''">t.brand = #{brand}</if>
+            <if test="productName != null and productName != ''">t.sku_name = #{productName}</if>
+        </where>
+    </select>
+
+    <!--获取Meco产品列表-->
+    <select id="getProductMecoList" resultType="com.bootdo.production.domain.ProdctionDo">
+        SELECT
+        t.sku_id pid,
+        t.product_image productImage,
+        t.product_image_url productImageUrl,
+        t.material_code productCode,
+        t.sku_name productName,
+        t.category_name category,
+        t.models models,
+        t.units units,
+        t.price price,
+        t.volume volume,
+        t.weight weight
+        FROM product_sku t
+        <where>
+            <if test="productName != null and productName != ''">t.sku_name = #{productName}</if>
+            <if test="brand != null and brand != ''">t.brand = #{brand}</if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+            <otherwise>
+                order by pid desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit ${offset}, ${limit}
+        </if>
+    </select>
+
+    <select id="getProductMecoCount" resultType="int">
+        SELECT COUNT(*)
+        FROM product_sku t
+        <where>
+            <if test="productName != null and productName != ''">t.sku_name = #{productName}</if>
+            <if test="brand != null and brand != ''">t.brand = #{brand}</if>
+        </where>
+    </select>
+
+    <!--获取Lfy产品列表-->
+    <select id="getProductLfyList" resultType="com.bootdo.production.domain.ProdctionDo">
+        SELECT
+        t.sku_id pid,
+        t.product_image productImage,
+        t.product_image_url productImageUrl,
+        t.material_code productCode,
+        t.sku_name productName,
+        t.category_name category,
+        t.models models,
+        t.units units,
+        t.price price,
+        t.volume volume,
+        t.weight weight
+        FROM product_sku t
+        <where>
+            <if test="productName != null and productName != ''">t.sku_name = #{productName}</if>
+            <if test="brand != null and brand != ''">t.brand = #{brand}</if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+            <otherwise>
+                order by pid desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit ${offset}, ${limit}
+        </if>
+    </select>
+
+    <select id="getProductLfyCount" resultType="int">
+        SELECT COUNT(*)
+        FROM product_sku t
+        <where>
+            <if test="productName != null and productName != ''">t.sku_name = #{productName}</if>
+            <if test="brand != null and brand != ''">t.brand = #{brand}</if>
+        </where>
+    </select>
+
+</mapper>

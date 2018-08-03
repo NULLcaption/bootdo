@@ -92,4 +92,9 @@ public class LoginController extends BaseController {
 		return "main";
 	}
 
+	@GetMapping("/main_1")
+	String main_1() {
+		return "main_1";
+	}
+
 }

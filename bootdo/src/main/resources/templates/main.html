@@ -1,36 +1,228 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>欢迎页</title>
+    <title>首页</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/style.css?v=4.1.0" rel="stylesheet">
 </head>
 <body>
-<div class="panel panel-default">
-    <div class="panel-heading">了解BootDo</div>
-    <div style="padding: 10px 0 20px 10px;">
-        <h3>&nbsp;&nbsp;&nbsp;项目介绍</h3>
-        <ul>
-            <li>面向学习型的开源框架，简洁高效，减少过渡封装，展现技术本质</li>
-            <li>Springboot作为基础框架，使用mybatis作为持久层框架</li>
-            <li>使用官方推荐的thymeleaf做为模板引擎，shiro作为安全框架,主流技术，“一网打尽”</li>
-            <li>极简配置，一键前后台代码生成</li>
-        </ul>
+    <div class="panel panel-default">
+        <!--<div class="panel-heading">首页详情</div>-->
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12" style="padding: 5px 5px 5px 20px;">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>品牌</th>
+                            <th>总账余额(元)</th>
+                            <th>货款账余(元)</th>
+                            <th>费用账余(元)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="active">
+                            <td>香飘飘</td>
+                            <td>800000</td>
+                            <td>535434</td>
+                            <td>75757</td>
+                        </tr>
+                        <tr class="success">
+                            <td>MECO</td>
+                            <td>800000</td>
+                            <td>535434</td>
+                            <td>75757</td>
+                        </tr>
+                        <tr  class="warning">
+                            <td>兰芳园</td>
+                            <td>800000</td>
+                            <td>535434</td>
+                            <td>75757</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-        <h3>&nbsp;&nbsp;&nbsp;获取源码</h3>
-        <ul>
-            <li>Github地址：<a href="https://github.com/lcg0124/bootdo.git" th:href="@{https://github.com/lcg0124/bootdo.git}" target="_blank">https://github.com/lcg0124/bootdo.git</a></li>
-            <li>Oschina地址：<a href="https://gitee.com/lcg0124/bootdo.git" target="_blank">https://gitee.com/lcg0124/bootdo.git</a></li>
-        </ul>
+            <div class="row">
+                <div class="col-sm-4" style="padding: 5px 5px 5px 20px;">
+                    <div class="panel panel-danger">
+                        <div class="panel panel-heading">
+                            <span class="glyphicon glyphicon-edit">待办事项</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6" style="padding: 5px">
+                                    <div class="glyphicon glyphicon-list-alt"></div>
+                                    <span class="text-muted">待到货订单:</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="label label-primary">550</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6" style="padding: 5px">
+                                    <div class="glyphicon glyphicon-send"></div>
+                                    <span class="text-muted">未到账订单:</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="label label-danger">1550</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6" style="padding: 5px">
+                                    <div class="glyphicon glyphicon-th-list"></div>
+                                    <span class="text-muted">待审核货订单:</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="label label-warning">650</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6" style="padding: 5px">
+                                    <div class="glyphicon glyphicon-plane"></div>
+                                    <span class="text-muted">待发货订单:</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="label label-success">550</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <h3>&nbsp;&nbsp;&nbsp;官方QQ群</h3>
-        <ul>
-            <li>点击链接加入群【BootDo交流群】：<a href="https://jq.qq.com/?_wv=1027&k=5EYXfiZ">669039323(满)</a></li>
-            <li>点击链接加入群聊【BootDo交流二群】：<a href="https://jq.qq.com/?_wv=1027&k=5M659N4">614726589</a></li>
-        </ul>
+                <div class="row">
+                    <div class="col-sm-7" style="padding: 5px 5px 5px 15px;">
+                        <div class="panel panel-success">
+                            <div class="panel panel-heading">
+                                <span class="glyphicon glyphicon-volume-up">
+                                    最新通知
+                                </span>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-7" style="padding: 5px 5px 5px 25px">
+                                    <span class="text-muted">香人通知【2018】016号 关于公司组织调整与相关人员任命的通知</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="text-muted">2018-07-21</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-7" style="padding: 5px 5px 5px 25px">
+                                    <span class="text-muted">香人通知【2018】016号 关于公司组织调整与相关人员任命的通知</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="text-muted">2018-07-21</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-7" style="padding: 5px 5px 5px 25px">
+                                    <span class="text-muted">香人通知【2018】016号 关于公司组织调整与相关人员任命的通知</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="text-muted">2018-07-21</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-7" style="padding: 5px 5px 5px 25px">
+                                    <span class="text-muted">香人通知【2018】016号 关于公司组织调整与相关人员任命的通知</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="text-muted">2018-07-21</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-7" style="padding: 5px 5px 5px 25px">
+                                    <span class="text-muted">香人通知【2018】016号 关于公司组织调整与相关人员任命的通知</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="text-muted">2018-07-21</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6" style="padding: 5px 5px 5px 30px;">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>销售统计</h5>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="graph_flot.html#">
+                                        <i class="fa fa-wrench"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-user">
+                                        <li><a href="graph_flot.html#">选项1</a>
+                                        </li>
+                                        <li><a href="graph_flot.html#">选项2</a>
+                                        </li>
+                                    </ul>
+                                    <a class="close-link">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="echarts" id="echarts-scatter-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6" style="padding: 5px 30px 5px 5px;">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>采购统计</h5>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="graph_flot.html#">
+                                        <i class="fa fa-wrench"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-user">
+                                        <li><a href="graph_flot.html#">选项1</a>
+                                        </li>
+                                        <li><a href="graph_flot.html#">选项2</a>
+                                        </li>
+                                    </ul>
+                                    <a class="close-link">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="echarts" id="echarts-radar-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+
+    <!-- 全局js -->
+    <script src="/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/js/bootstrap.min.js?v=3.3.6"></script>
+
+    <!-- ECharts -->
+    <script src="/js/plugins/echarts/echarts-all.js"></script>
+
+    <!-- 自定义js -->
+    <script src="/js/content.js?v=1.0.0"></script>
+
+
+    <!-- ECharts demo data -->
+    <script src="/js/demo/echarts-demo.js"></script>
+
 </body>
 </html>

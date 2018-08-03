@@ -3,7 +3,12 @@ package com.bootdo.common.utils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.UUID;
-
+/**
+* @Description:    文件上传工具类
+* @Author:         Cheney Master
+* @CreateDate:     2018/7/31 13:41
+* @Version:        1.0
+*/
 public class FileUtil {
 
 	public static void uploadFile(byte[] file, String filePath, String fileName) throws Exception {

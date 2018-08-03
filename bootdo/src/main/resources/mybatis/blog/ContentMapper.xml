@@ -28,7 +28,7 @@
 		  		  <if test="author != null and author != ''"> and author = #{author} </if>
 		  		  <if test="gtmCreate != null and gtmCreate != ''"> and gtm_create = #{gtmCreate} </if>
 		  		  <if test="gtmModified != null and gtmModified != ''"> and gtm_modified = #{gtmModified} </if>
-		  		</where>
+		</where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
                 order by ${sort} ${order}

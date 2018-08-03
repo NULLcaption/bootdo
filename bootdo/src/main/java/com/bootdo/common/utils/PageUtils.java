@@ -4,8 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @Author bootdo 1992lcg@163.com
- */
+* @Description:    分页工具类
+* @Author:         Cheney Master
+* @CreateDate:     2018/7/30 9:22
+* @Version:        1.0
+*/
+
 public class  PageUtils implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int total;
