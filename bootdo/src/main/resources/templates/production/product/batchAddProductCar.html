@@ -9,9 +9,9 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
                     <form class="form-horizontal m-t" id="signupForm">
-
                         <div class="form-group">
                             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6" th:each="prodctionDo : ${prodctionDoList}"><!-- 大屏幕放3张略缩图，pc端放4张，平板和手机放6张-->
+                                <input id="pid" name="pid" type="hidden" th:value="${prodctionDo.pid}">
                                 <div class="thumbnail">
                                     <img style="width: 200px;height: 100px;" th:src="${prodctionDo.productImageUrl}" alt="产品图片" class="img-responsive">
                                     <div class="caption">
@@ -25,7 +25,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="text-right form-group">
                             <button type="button"
                                     class="btn btn-primary waves-effect waves-light"
