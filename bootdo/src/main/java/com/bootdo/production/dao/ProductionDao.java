@@ -44,4 +44,8 @@ public interface ProductionDao {
     int getProductCollectById(ProductCollectionDo productCollectionDo);
 
     int creatProductCollet(ProductCollectionDo productCollectionDo);
+
+    ProdctionDo getViewProductionsById(String pid);
+
+    List<ProdctionDo> getProductionByPids(Long[] pids);
 }

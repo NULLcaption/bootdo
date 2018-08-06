@@ -87,4 +87,14 @@ public class ProductionServiceImpl implements ProductionService {
     public int creatProductCollet(ProductCollectionDo productCollectionDo) {
         return productionDao.creatProductCollet(productCollectionDo);
     }
+
+    @Override
+    public ProdctionDo getViewProductionsById(String pid) {
+        return productionDao.getViewProductionsById(pid);
+    }
+
+    @Override
+    public List<ProdctionDo> getProductionByPids(Long[] pids) {
+        return productionDao.getProductionByPids(pids);
+    }
 }

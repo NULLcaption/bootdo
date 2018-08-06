@@ -25,6 +25,15 @@ public class ProdctionDo implements Serializable {
     private String weight;
     private String brand;
     private String num;
+    private String isCollect;
+
+    public String getIsCollect() {
+        return isCollect;
+    }
+
+    public void setIsCollect(String isCollect) {
+        this.isCollect = isCollect;
+    }
 
     public String getNum() {
         return num;
@@ -146,6 +155,7 @@ public class ProdctionDo implements Serializable {
                 ", weight='" + weight + '\'' +
                 ", brand='" + brand + '\'' +
                 ", num='" + num + '\'' +
+                ", isCollect='" + isCollect + '\'' +
                 '}';
     }
 }

@@ -229,8 +229,8 @@ public class ProductionController  extends BaseController {
      * @return
      */
     @ResponseBody
-    @PostMapping("/addCollect/{pid}")
-    public R addCollect(@PathVariable("pid") String pid) {
+    @PostMapping("/addCollect")
+    public R addCollect(String pid) {
         if (StringUtils.isNotEmpty(pid)) {
             ProductCollectionDo productCollectionDo = new ProductCollectionDo();
             productCollectionDo.setUserId(this.getUserId());
@@ -240,13 +240,92 @@ public class ProductionController  extends BaseController {
                 productCollectionDo.setCreatTime(new Date());
                 int collectcount = productionService.creatProductCollet(productCollectionDo);
                 if (collectcount > 0) {
-                    R.ok().put("pid",pid);
+                    return R.ok().put("pid",pid);
                 }
             } else {
-                R.error(1,"该产品已经被收藏过了，不能重复收藏了！");
+                return R.error(1,"该产品已经被收藏过了，不能重复收藏了！");
             }
         }
         return R.error();
     }
 
+    /**
+     * 批量添加至收藏夹
+     * @param pids
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("batchAddCollect")
+    public R batchAddCollect(@RequestParam("pids[]") Long[] pids) {
+        if (pids.length != 0) {
+            int collectcount = 0;
+            for (int i=0; i<pids.length; i++) {
+                ProductCollectionDo productCollectionDo = new ProductCollectionDo();
+                productCollectionDo.setPid(pids[i]);
+                productCollectionDo.setUserId(this.getUserId());
+                int count = productionService.getProductCollectById(productCollectionDo);
+                if (count == 0) {
+                    productCollectionDo.setCreatTime(new Date());
+                    collectcount = productionService.creatProductCollet(productCollectionDo);
+                    if (collectcount > 0) {
+                        collectcount++;
+                    }
+                } else {
+                    return R.error(1,pids[i]+":该产品已经被收藏过了，不能重复收藏了！");
+                }
+            }
+            if (collectcount > 0) {
+                return R.ok();
+            }
+        }
+        return R.error();
+    }
+
+    /**
+     * 预览商品详情
+     * @param pid
+     * @return
+     */
+    @GetMapping("/preview/{pid}")
+    public String viewProductionsById(@PathVariable("pid") String pid, Model model) {
+        //产品列表
+        ProdctionDo prodctionDo = productionService.getViewProductionsById(pid);
+        if (StringUtils.isNotEmpty(prodctionDo.getProductImageUrl())) {
+            prodctionDo.setProductImageUrl("/images/" + prodctionDo.getProductImageUrl().replace("/files/", ""));
+        }
+        //是否被收藏
+        ProductCollectionDo productCollectionDo = new ProductCollectionDo();
+        productCollectionDo.setPid(Long.valueOf(pid));
+        productCollectionDo.setUserId(this.getUserId());
+        int count = productionService.getProductCollectById(productCollectionDo);
+        if (count != 0) {
+            prodctionDo.setIsCollect("已收藏");
+        } else {
+            prodctionDo.setIsCollect("未收藏");
+        }
+        model.addAttribute("prodctionDo",prodctionDo);
+        return "production/product/productView";
+    }
+
+    /**
+     * 批量添加至购物车
+     * @param pids
+     * @return
+     */
+    @GetMapping("/batchAddCar/{pids}")
+    public String batchAddProductCar (@PathVariable("pids") Long[] pids, Model model) {
+        List<ProdctionDo> prodctionDoList = new ArrayList<>();
+        if (pids.length != 0) {
+            prodctionDoList = productionService.getProductionByPids(pids);
+            if(prodctionDoList.size()!=0) {
+                for(ProdctionDo prodctionDo : prodctionDoList) {
+                    if (StringUtils.isNotEmpty(prodctionDo.getProductImageUrl())) {
+                        prodctionDo.setProductImageUrl("/images/" + prodctionDo.getProductImageUrl().replace("/files/", ""));
+                    }
+                }
+            }
+        }
+        model.addAttribute("prodctionDoList",prodctionDoList);
+        return "production/product/batchAddProductCar";
+    }
 }

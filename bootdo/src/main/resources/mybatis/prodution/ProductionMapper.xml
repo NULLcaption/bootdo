@@ -4,10 +4,60 @@
 <mapper namespace="com.bootdo.production.dao.ProductionDao">
 
 
+    <!--获取商品list-->
+    <select id="getProductionByPids" resultType="com.bootdo.production.domain.ProdctionDo">
+        SELECT
+            t.sku_id pid,
+            t.product_image productImage,
+            t.product_image_url productImageUrl,
+            t.material_code productCode,
+            t.sku_name productName,
+            t.category_name category,
+            t.models models,
+            t.units units,
+            t.price price,
+            t.volume volume,
+            t.weight weight,
+            ct.num num
+        FROM product_sku t
+        LEFT JOIN product_car ct ON ct.pid = t.sku_id
+        WHERE t.sku_id IN
+        <foreach item="pid" collection="array" open="(" separator="," close=")">
+            #{pid}
+        </foreach>
+    </select>
+
+    <select id="getViewProductionsById" resultType="com.bootdo.production.domain.ProdctionDo">
+        SELECT
+            t.sku_id pid,
+            t.product_image productImage,
+            t.product_image_url productImageUrl,
+            t.material_code productCode,
+            t.sku_name productName,
+            t.category_name category,
+            t.models models,
+            t.units units,
+            t.price price,
+            t.volume volume,
+            t.weight weight,
+            ct.num num
+        FROM product_sku t
+        LEFT JOIN product_car ct ON ct.pid = t.sku_id
+        WHERE t.sku_id = #{pid}
+    </select>
+
+    <!--保存收藏夹-->
+    <insert id="creatProductCollet" parameterType="com.bootdo.production.domain.ProductCollectionDo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO product_collection
+        (pid,user_id,creat_time)
+        VALUES
+        (#{pid},#{userId},#{creatTime})
+    </insert>
+
+    <!--根据ID获取收藏夹中的数量-->
     <select id="getProductCollectById" parameterType="com.bootdo.production.domain.ProductCollectionDo" resultType="int">
         SELECT COUNT(*) FROM product_collection t WHERE t.pid=#{pid} AND t.user_id=#{userId}
     </select>
-
 
     <!--更新购物车-->
     <update id="updateProductCarById" parameterType="com.bootdo.production.domain.ProductCarDo">
