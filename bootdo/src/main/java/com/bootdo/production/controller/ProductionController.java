@@ -176,6 +176,24 @@ public class ProductionController  extends BaseController {
     }
 
     /**
+     * 收藏夹展示
+     * @return
+     */
+    @GetMapping("/collect")
+    public String productionCollect(Model model) {
+        List<ProdctionDo> prodctionDoList = productionService.getProductCollect(this.getUserId());
+        if(prodctionDoList.size()!=0) {
+            for(ProdctionDo prodctionDo : prodctionDoList) {
+                if (StringUtils.isNotEmpty(prodctionDo.getProductImageUrl())) {
+                    prodctionDo.setProductImageUrl("/images/" + prodctionDo.getProductImageUrl().replace("/files/", ""));
+                }
+            }
+        }
+        model.addAttribute("prodctionDoList",prodctionDoList);
+        return "production/product/productCollect";
+    }
+
+    /**
      * 加入购物车页面
      * @return
      */
@@ -255,7 +273,7 @@ public class ProductionController  extends BaseController {
      * @return
      */
     @ResponseBody
-    @PostMapping("batchAddCollect")
+    @PostMapping("/batchAddCollect")
     public R batchAddCollect(@RequestParam("pids[]") Long[] pids) {
         if (pids.length != 0) {
             int collectcount = 0;
@@ -327,5 +345,40 @@ public class ProductionController  extends BaseController {
         }
         model.addAttribute("prodctionDoList",prodctionDoList);
         return "production/product/batchAddProductCar";
+    }
+
+    /**
+     * 批量添加至购物车
+     * @param pids
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/batchAddCar")
+    public R batchSaveProductionCar (@RequestParam("pids[]") Long[] pids) {
+        if (pids.length != 0) {
+            int count;
+            for (int i=0; i<pids.length; i++) {
+                ProductCarDo productCarDo = new ProductCarDo();
+                productCarDo.setPid(pids[i]);
+                productCarDo.setUserId(this.getUserId());
+                count = productionService.getProductCarById(productCarDo);
+                if (count == 0) {
+                    productCarDo.setNum(Double.valueOf(0.0));
+                    productCarDo.setCreatTime(new Date());
+                    int creatcount = productionService.creatProductCar(productCarDo);
+                    if (creatcount > 0) {
+                        return R.ok().put("pid", pids[i]);
+                    }
+                } else {
+                    productCarDo.setNum(Double.valueOf(Double.valueOf(0.0)));
+                    productCarDo.setCreatTime(new Date());
+                    int updatecount = productionService.updateProductCarById(productCarDo);
+                    if (updatecount > 0) {
+                        return R.ok().put("pid", pids[i]);
+                    }
+                }
+            }
+        }
+        return R.error();
     }
 }

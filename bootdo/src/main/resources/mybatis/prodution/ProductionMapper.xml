@@ -3,6 +3,29 @@
 
 <mapper namespace="com.bootdo.production.dao.ProductionDao">
 
+    <!--收藏夹展示-->
+    <select id="getProductCollect" resultType="com.bootdo.production.domain.ProdctionDo">
+        SELECT
+            t.sku_id pid,
+            t.product_image productImage,
+            t.product_image_url productImageUrl,
+            t.material_code productCode,
+            t.sku_name productName,
+            t.category_name category,
+            t.models models,
+            t.units units,
+            t.price price,
+            t.volume volume,
+            t.weight weight,
+            ct.user_id userId,
+            s.name userName
+        FROM
+            product_sku t
+        LEFT JOIN product_collection ct ON ct.pid = t.sku_id
+        LEFT JOIN sys_user s ON s.user_id = ct.user_id
+        WHERE
+            ct.user_id = #{userId}
+    </select>
 
     <!--获取商品list-->
     <select id="getProductionByPids" resultType="com.bootdo.production.domain.ProdctionDo">

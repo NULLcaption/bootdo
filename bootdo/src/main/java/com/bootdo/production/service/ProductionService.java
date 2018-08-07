@@ -44,4 +44,6 @@ public interface ProductionService {
     ProdctionDo getViewProductionsById(String pid);
 
     List<ProdctionDo> getProductionByPids(Long[] pids);
+
+    List<ProdctionDo> getProductCollect(Long userId);
 }

@@ -26,6 +26,24 @@ public class ProdctionDo implements Serializable {
     private String brand;
     private String num;
     private String isCollect;
+    private String userId;
+    private String userName;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getIsCollect() {
         return isCollect;
@@ -156,6 +174,8 @@ public class ProdctionDo implements Serializable {
                 ", brand='" + brand + '\'' +
                 ", num='" + num + '\'' +
                 ", isCollect='" + isCollect + '\'' +
+                ", userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
                 '}';
     }
 }

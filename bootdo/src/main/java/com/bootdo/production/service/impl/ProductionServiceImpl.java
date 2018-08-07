@@ -97,4 +97,9 @@ public class ProductionServiceImpl implements ProductionService {
     public List<ProdctionDo> getProductionByPids(Long[] pids) {
         return productionDao.getProductionByPids(pids);
     }
+
+    @Override
+    public List<ProdctionDo> getProductCollect(Long userId) {
+        return productionDao.getProductCollect(userId);
+    }
 }

@@ -105,14 +105,14 @@ function load() {
                     field : 'id',
                     align : 'center',
                     formatter : function(value, row, index) {
-                        var e = '<a class="btn btn-primary btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="edit(\''
-                            + row.cid
+                        var e = '<a class="btn btn-primary btn-sm '+s_edit_h+'" href="#" mce_href="#" title="加入购物车" onclick="addCar(\''
+                            + row.pid
                             + '\')"><i class="fa fa-edit"></i></a> ';
-                        var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="收藏"  mce_href="#" onclick="remove(\''
-                            + row.cid
+                        var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="加入收藏"  mce_href="#" onclick="addCollect(\''
+                            + row.pid
                             + '\')"><i class="fa fa-star"></i></a> ';
-                        var f = '<a class="btn btn-success btn-sm" href="#" title="预览"  mce_href="#" onclick="preview(\''
-                            + row.cid
+                        var f = '<a class="btn btn-success btn-sm" href="#" title="预览产品详情"  mce_href="#" onclick="preview(\''
+                            + row.pid
                             + '\')"><i class="fa fa-rocket"></i></a> ';
                         return e + d +f;
                     }
@@ -138,42 +138,90 @@ function reLoad() {
     $('#exampleTable').bootstrapTable('refresh');
 }
 
-function add() {
-    var addPage = layer.open({
-        type : 2,
-        title : '增加',
-        maxmin : true,
-        shadeClose : false, // 点击遮罩关闭层
-        area : [ '800px', '520px' ],
-        content : prefix + '/add' // iframe的url
-    });
-    layer.full(addPage);
+/**
+ * 批量加入购物车
+ */
+function batchAddCar() {
+    var rows = $('#exampleTable').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组
+    if (rows.length == 0) {
+        layer.msg("请选择要添加的数据!");
+        return;
+    }
+    layer.confirm("确认要添加选中的'" + rows.length + "'条数据吗?", {
+            btn : [ '确定', '取消' ]
+            // 按钮
+        }, function() {
+            var pids = new Array();
+            // 遍历所有选择的行数据，取每条数据对应的ID
+            $.each(rows, function(i, row) {
+                pids[i] = row['pid'];
+            });
+            var addPage = layer.open({
+                type : 2,
+                title : '加入购物车',
+                maxmin : true,
+                shadeClose : false, // 点击遮罩关闭层
+                area : [ '400px', '520px' ],
+                content : prefix + '/batchAddCar/' + pids // iframe的url
+            });
+            layer.full(addPage);
+            //$.ajax({
+            //    type : 'POST',
+            //    data : {
+            //        "pids" : pids
+            //    },
+            //    url : prefix + '/batchAddCar',
+            //    success : function(r) {
+            //        if (r.code == 0) {
+            //            layer.msg(r.msg);
+            //            reLoad();
+            //        } else {
+            //            layer.msg(r.msg);
+            //        }
+            //    }
+            //});
+        }, function() {
+
+        }
+    );
 }
-function edit(cid) {
+
+/**
+ * 加入购物车
+ * @param pid
+ */
+function addCar(pid) {
     var editPage = layer.open({
         type : 2,
-        title : '编辑',
+        title : '加入购物车',
         maxmin : true,
         shadeClose : false, // 点击遮罩关闭层
-        area : [ '800px', '520px' ],
-        content : prefix + '/edit/' + cid // iframe的url
+        area : [ '400px', '520px' ],
+        content : prefix + '/addCar/' + pid // iframe的url
     });
     layer.full(editPage);
 }
-function remove(id) {
-    layer.confirm('确定要删除选中的记录？', {
+
+/**
+ * 加入收藏夹
+ * @param id
+ */
+function addCollect(pid) {
+    layer.confirm('确定要加入收藏夹？', {
         btn : [ '确定', '取消' ]
     }, function() {
         $.ajax({
-            url : prefix + "/remove",
-            type : "post",
+            url : prefix + "/addCollect",
+            type : "POST",
             data : {
-                'id' : id
+                'pid' : pid
             },
             success : function(r) {
                 if (r.code == 0) {
                     layer.msg(r.msg);
                     reLoad();
+                } else if (r.code == 1) {
+                    layer.msg(r.msg);
                 } else {
                     layer.msg(r.msg);
                 }
@@ -181,32 +229,45 @@ function remove(id) {
         });
     })
 }
-
-function preview(id) {
-    window.open("/blog/open/post/"+id);
-    //window.location.href="/blog/open/post/"+id;
+/**
+ * 预览产品详情
+ * @param id
+ */
+function preview(pid) {
+    var viewPage = layer.open({
+        type : 2,
+        title : '预览产品详情',
+        maxmin : true,
+        shadeClose : false, // 点击遮罩关闭层
+        area : [ '400px', '520px' ],
+        content : prefix + '/preview/' + pid // iframe的url
+    });
+    layer.full(viewPage);
 }
-function batchRemove() {
+/**
+ * 批量加入收藏夹
+ */
+function batchAddCollect() {
     var rows = $('#exampleTable').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组
     if (rows.length == 0) {
-        layer.msg("请选择要删除的数据");
+        layer.msg("请选择要收藏的数据!");
         return;
     }
-    layer.confirm("确认要删除选中的'" + rows.length + "'条数据吗?", {
+    layer.confirm("确认要收藏选中的'" + rows.length + "'条数据吗?", {
         btn : [ '确定', '取消' ]
         // 按钮
     }, function() {
-        var ids = new Array();
+        var pids = new Array();
         // 遍历所有选择的行数据，取每条数据对应的ID
         $.each(rows, function(i, row) {
-            ids[i] = row['cid'];
+            pids[i] = row['pid'];
         });
         $.ajax({
             type : 'POST',
             data : {
-                "ids" : ids
+                "pids" : pids
             },
-            url : prefix + '/batchRemove',
+            url : prefix + '/batchAddCollect',
             success : function(r) {
                 if (r.code == 0) {
                     layer.msg(r.msg);
