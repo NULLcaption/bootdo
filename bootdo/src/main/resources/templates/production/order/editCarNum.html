@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content ">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <form class="form-horizontal m-t" id="signupForm">
+                        <input id="pid" name="pid" type="hidden" th:value="${prodctionDo.pid}">
+                        <input id="brand" name="brand" type="hidden" th:value="${prodctionDo.brand}">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <p><img class="img-responsive center-block" style="width: 200px;height: 150px;" th:src="${prodctionDo.productImageUrl}" /></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">产品编码：</label>
+                            <div class="col-sm-4">
+                                <input id="productCode" name="productCode" class="form-control" type="text"
+                                       th:value="${prodctionDo.productCode}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">产品名称：</label>
+                            <div class="col-sm-4">
+                                <input id="productName" name="productName" class="form-control"
+                                       type="text" th:value="${prodctionDo.productName}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">所属分类：</label>
+                            <div class="col-sm-4">
+                                <input id="category" name="category" class="form-control" type="text"
+                                       th:value="${prodctionDo.category}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">规格型号：</label>
+                            <div class="col-sm-4">
+                                <input id="models" name="models" class="form-control"
+                                       type="text" th:value="${prodctionDo.models}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">单位：</label>
+                            <div class="col-sm-2">
+                                <input id="units" name="units" class="form-control" type="text"
+                                       th:value="${prodctionDo.units}" readonly>
+                            </div>
+                            <label class="col-sm-2 control-label">价格(元)：</label>
+                            <div class="col-sm-2">
+                                <input id="price" name="price" class="form-control"
+                                       type="text" th:value="${prodctionDo.price}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">体积(m^2)：</label>
+                            <div class="col-sm-2">
+                                <input id="volume" name="volume" class="form-control"
+                                       type="text" th:value="${prodctionDo.volume}" readonly>
+                            </div>
+                            <label class="col-sm-2 control-label">重量(KG)：</label>
+                            <div class="col-sm-2">
+                                <input id="weight" name="weight" class="form-control"
+                                       type="text" th:value="${prodctionDo.weight}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">购买数量(箱)：</label>
+                            <div class="col-sm-4">
+                                <input id="num" name="num" class="form-control"
+                                       type="number" th:value="${prodctionDo.num}">
+                            </div>
+                        </div>
+                        <div class="text-right form-group">
+                            <button type="button"
+                                    class="btn btn-primary btn-group btn-group-justified"
+                                    onclick="save(1)">保存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript" src="/js/appjs/production/production/productAddCar.js"></script>
+</body>
+</html>

@@ -37,6 +37,8 @@ function save(status) {
                     parent.layer.msg(r.msg);
                     //操作成功以后返回列表
                     parent.layer.close(index);
+                    //修改添加完成以后刷新列表
+                    parent.reLoad();
                 } else {
                     parent.layer.alert(r.msg)
                 }
